@@ -185,6 +185,28 @@ st.markdown("""
         justify-content: space-between;
         min-height: 140px;
     }
+            
+    /* Fix Selectbox (Sex, Education, Marriage) */
+    div[data-testid="stSelectbox"] > div > div {
+        background-color: #FFFFFF !important;
+        border: 1px solid #D1D1D1 !important;
+        border-radius: 6px !important;
+        color: #1B1B1B !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        height: 42px !important;
+        min-height: 42px !important;
+    }
+
+    div[data-testid="stSelectbox"] span {
+        color: #1B1B1B !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+    }
+
+    div[data-testid="stSelectbox"] svg {
+        fill: #1B1B1B !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
