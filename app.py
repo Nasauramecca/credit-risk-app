@@ -117,7 +117,63 @@ st.markdown("""
         border-color: #000000 !important;
     }
     
-    /* 6. Card Output Hasil */
+    /* 6. Fix Number Input — konsisten di semua platform */
+    div[data-testid="stNumberInput"] {
+        width: 100% !important;
+    }
+
+    div[data-testid="stNumberInput"] > div {
+        display: flex !important;
+        align-items: center !important;
+        background-color: #FFFFFF !important;
+        border: 1px solid #D1D1D1 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+        height: 42px !important;
+    }
+
+    div[data-testid="stNumberInput"] input {
+        background-color: #FFFFFF !important;
+        color: #1B1B1B !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        padding: 0 10px !important;
+        width: 100% !important;
+        height: 42px !important;
+    }
+
+    div[data-testid="stNumberInput"] button {
+        background-color: #F5F5F5 !important;
+        border: none !important;
+        border-left: 1px solid #D1D1D1 !important;
+        color: #1B1B1B !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        width: 36px !important;
+        min-width: 36px !important;
+        height: 42px !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    div[data-testid="stNumberInput"] button:hover {
+        background-color: #E8E8E8 !important;
+        color: #000000 !important;
+    }
+
+    div[data-testid="stNumberInput"] button:first-of-type {
+        border-left: 1px solid #D1D1D1 !important;
+        border-right: none !important;
+    }
+
+    /* 7. Card Output Hasil */
     .result-card-premium {
         background-color: #FFFFFF;
         border: 1px solid #E0E0E0;
