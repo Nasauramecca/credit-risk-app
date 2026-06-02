@@ -514,7 +514,7 @@ if current_mode == "Single Client Analysis":
     # ──────────────────────────────────────────────────────────────
     with st.expander("📖 PANDUAN PENGISIAN FORM (Klik untuk buka/tutup)", expanded=True):
         
-        col_left, col_mid, col_right = st.columns(3)
+        col_left, col_right = st.columns(2)
 
         with col_left:
             st.markdown("**👤 DATA DIRI**")
@@ -525,8 +525,7 @@ if current_mode == "Single Client Analysis":
             - **MARRIAGE** = 1 = Menikah, 2 = Single, 3 = Lainnya
             - **AGE** = Usia nasabah (tahun)
             """)
-        
-        with col_mid:
+
             st.markdown("**📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)**")
             st.markdown("""
             - **PAY_0** = September (bulan terbaru)
@@ -536,7 +535,8 @@ if current_mode == "Single Client Analysis":
             - **PAY_5** = Mei
             - **PAY_6** = April
             """)
-            
+        
+        with col_right:
             st.markdown("**🎯 Arti Nilai PAY:**")
             st.markdown("""
             - ✅ **-2** = Bayar lebih (sangat baik)
@@ -545,13 +545,13 @@ if current_mode == "Single Client Analysis":
             - ⚠️ **1** = Telat 2 bulan (buruk)
             - ❌ **2-8** = Telat 3-9 bulan (sangat buruk)
             """)
-        
-        with col_right:
+
             st.markdown("**💰 TAGIHAN & PEMBAYARAN**")
             st.markdown("""
             - **BILL_AMT1-6** = Tagihan per bulan (NT$) - yang HARUS dibayar
             - **PAY_AMT1-6** = Pembayaran per bulan (NT$) - yang BENAR-BENAR dibayar
             """)
+
         
         st.info("💡 **Tips:** Bandingkan PAY_AMT dengan BILL_AMT. Semakin mendekati tagihan, semakin baik.")
         
