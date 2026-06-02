@@ -512,22 +512,58 @@ if current_mode == "Single Client Analysis":
     # ──────────────────────────────────────────────────────────────
     # KOTAK INFO
     # ──────────────────────────────────────────────────────────────
-    st.markdown("""
-    <div style='background-color: #F8F9FA; border: 1px solid #E0E0E0; border-radius: 12px; padding: 20px; margin-bottom: 25px;'>
+    with st.expander("📖 PANDUAN PENGISIAN FORM (Klik untuk buka/tutup)", expanded=True):
+        st.markdown("""
+        <style>
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .guide-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #EEEEEE;
+            vertical-align: top;
+        }
+        .guide-table tr:last-child td {
+            border-bottom: none;
+        }
+        .badge-green {
+            background-color: #22C55E;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-orange {
+            background-color: #F97316;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-red {
+            background-color: #EF4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        </style>
         
-        <div style='display: flex; align-items: center; gap: 10px; margin-bottom: 15px;'>
-            <span style='font-size: 20px;'>📋</span>
-            <span style='font-size: 16px; font-weight: 700; color: #1B1B1B;'>PANDUAN PENGISIAN FORM</span>
-        </div>
-        
-        <!-- 3 kolom dalam 1 baris -->
         <div style='display: flex; gap: 20px; flex-wrap: wrap;'>
             
-            <!-- Kolom 1: Data Diri -->
-            <div style='flex: 1; min-width: 200px;'>
-                <div style='font-size: 13px; font-weight: 700; color: #1B1B1B; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>👤 DATA DIRI</div>
-                <table style='width: 100%; font-size: 12px; line-height: 1.8;'>
-                    <tr><td style='width: 110px;'><strong>LIMIT_BAL</strong></td><td>Plafon kredit (NT$)</td></tr>
+            <!-- KOLOM 1: DATA DIRI -->
+            <div style='flex: 1; min-width: 220px;'>
+                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>👤 DATA DIRI</div>
+                <table class='guide-table'>
+                    <tr><td style='width: 100px;'><strong>LIMIT_BAL</strong></td><td>Plafon kredit (NT$) - semakin tinggi semakin baik</td></tr>
                     <tr><td><strong>SEX</strong></td><td>1 = Laki-laki, 2 = Perempuan</td></tr>
                     <tr><td><strong>EDUCATION</strong></td><td>1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya</td></tr>
                     <tr><td><strong>MARRIAGE</strong></td><td>1 = Menikah, 2 = Single, 3 = Lainnya</td></tr>
@@ -535,10 +571,10 @@ if current_mode == "Single Client Analysis":
                 </table>
             </div>
             
-            <!-- Kolom 2: Riwayat Pembayaran -->
-            <div style='flex: 1; min-width: 220px;'>
-                <div style='font-size: 13px; font-weight: 700; color: #1B1B1B; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)</div>
-                <table style='width: 100%; font-size: 12px; line-height: 1.8;'>
+            <!-- KOLOM 2: RIWAYAT PEMBAYARAN -->
+            <div style='flex: 1; min-width: 260px;'>
+                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)</div>
+                <table class='guide-table'>
                     <tr><td style='width: 100px;'><strong>PAY_0</strong></td><td>September (bulan terbaru)</td></tr>
                     <tr><td><strong>PAY_2</strong></td><td>Agustus</td></tr>
                     <tr><td><strong>PAY_3</strong></td><td>Juli</td></tr>
@@ -546,24 +582,24 @@ if current_mode == "Single Client Analysis":
                     <tr><td><strong>PAY_5</strong></td><td>Mei</td></tr>
                     <tr><td><strong>PAY_6</strong></td><td>April</td></tr>
                 </table>
-                <div style='background-color: #EEF2FF; padding: 8px; border-radius: 6px; margin-top: 10px; font-size: 11px;'>
+                <div style='background-color: #F0F7FF; padding: 10px; border-radius: 6px; margin-top: 8px;'>
                     <strong>🎯 Arti Nilai PAY:</strong><br>
-                    <span style='color: #22C55E;'>● -2 = Bayar lebih (sangat baik)</span><br>
-                    <span style='color: #22C55E;'>● -1 = Bayar tepat waktu (baik)</span><br>
-                    <span style='color: #F97316;'>● 0 = Telat 1 bulan (cukup)</span><br>
-                    <span style='color: #F97316;'>● 1 = Telat 2 bulan (buruk)</span><br>
-                    <span style='color: #EF4444;'>● 2-8 = Telat 3-9 bulan (sangat buruk)</span>
+                    <span class='badge-green'>-2</span> Bayar lebih (sangat baik)<br>
+                    <span class='badge-green'>-1</span> Bayar tepat waktu (baik)<br>
+                    <span class='badge-orange'>0</span> Telat 1 bulan (cukup)<br>
+                    <span class='badge-orange'>1</span> Telat 2 bulan (buruk)<br>
+                    <span class='badge-red'>2-8</span> Telat 3-9 bulan (sangat buruk)
                 </div>
             </div>
             
-            <!-- Kolom 3: Tagihan & Pembayaran -->
+            <!-- KOLOM 3: TAGIHAN & PEMBAYARAN -->
             <div style='flex: 1; min-width: 220px;'>
-                <div style='font-size: 13px; font-weight: 700; color: #1B1B1B; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>💰 TAGIHAN & PEMBAYARAN</div>
-                <table style='width: 100%; font-size: 12px; line-height: 1.8;'>
-                    <tr><td style='width: 100px;'><strong>BILL_AMT1-6</strong></td><td>Tagihan per bulan (NT$)</td></tr>
+                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>💰 TAGIHAN & PEMBAYARAN</div>
+                <table class='guide-table'>
+                    <tr><td style='width: 110px;'><strong>BILL_AMT1-6</strong></td><td>Tagihan per bulan (NT$)</td></tr>
                     <tr><td><strong>PAY_AMT1-6</strong></td><td>Pembayaran per bulan (NT$)</td></tr>
                 </table>
-                <div style='background-color: #EEF2FF; padding: 8px; border-radius: 6px; margin-top: 10px; font-size: 11px;'>
+                <div style='background-color: #F0F7FF; padding: 10px; border-radius: 6px; margin-top: 8px;'>
                     <strong>💡 Tips:</strong><br>
                     • BILL_AMT = tagihan yang HARUS dibayar<br>
                     • PAY_AMT = uang yang BENAR-BENAR dibayar<br>
@@ -573,15 +609,12 @@ if current_mode == "Single Client Analysis":
             
         </div>
         
-        <!-- Baris info tambahan -->
-        <div style='background-color: #E8F4FD; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 12px;'>
+        <div style='background-color: #E8F4FD; padding: 12px; border-radius: 8px; margin-top: 15px;'>
             <span style='font-weight: 700;'>📌 KESIMPULAN:</span> 
             Semakin kecil nilai PAY (negatif) dan semakin besar pembayaran dibanding tagihan → semakin BAIK. 
             Semakin besar nilai PAY (positif) dan pembayaran kecil → semakin BERISIKO.
         </div>
-        
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
