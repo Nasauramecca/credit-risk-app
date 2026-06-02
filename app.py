@@ -514,39 +514,44 @@ if current_mode == "Single Client Analysis":
     # ──────────────────────────────────────────────────────────────
     with st.expander("📖 PANDUAN PENGISIAN FORM (Klik untuk buka/tutup)", expanded=True):
         
-        st.markdown("**👤 DATA DIRI**")
-        st.markdown("""
-        - **LIMIT_BAL** = Plafon kredit (NT$) - semakin tinggi semakin baik
-        - **SEX** = 1 = Laki-laki, 2 = Perempuan
-        - **EDUCATION** = 1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya
-        - **MARRIAGE** = 1 = Menikah, 2 = Single, 3 = Lainnya
-        - **AGE** = Usia nasabah (tahun)
-        """)
+        col_left, col_mid, col_right = st.columns(3)
+
+        with col_left:
+            st.markdown("**👤 DATA DIRI**")
+            st.markdown("""
+            - **LIMIT_BAL** = Plafon kredit (NT$) - semakin tinggi semakin baik
+            - **SEX** = 1 = Laki-laki, 2 = Perempuan
+            - **EDUCATION** = 1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya
+            - **MARRIAGE** = 1 = Menikah, 2 = Single, 3 = Lainnya
+            - **AGE** = Usia nasabah (tahun)
+            """)
         
-        st.markdown("**📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)**")
-        st.markdown("""
-        - **PAY_0** = September (bulan terbaru)
-        - **PAY_2** = Agustus
-        - **PAY_3** = Juli
-        - **PAY_4** = Juni
-        - **PAY_5** = Mei
-        - **PAY_6** = April
-        """)
+        with col_mid:
+            st.markdown("**📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)**")
+            st.markdown("""
+            - **PAY_0** = September (bulan terbaru)
+            - **PAY_2** = Agustus
+            - **PAY_3** = Juli
+            - **PAY_4** = Juni
+            - **PAY_5** = Mei
+            - **PAY_6** = April
+            """)
+            
+            st.markdown("**🎯 Arti Nilai PAY:**")
+            st.markdown("""
+            - ✅ **-2** = Bayar lebih (sangat baik)
+            - ✅ **-1** = Bayar tepat waktu (baik)
+            - ⚠️ **0** = Telat 1 bulan (cukup)
+            - ⚠️ **1** = Telat 2 bulan (buruk)
+            - ❌ **2-8** = Telat 3-9 bulan (sangat buruk)
+            """)
         
-        st.markdown("**🎯 Arti Nilai PAY:**")
-        st.markdown("""
-        - ✅ **-2** = Bayar lebih (sangat baik)
-        - ✅ **-1** = Bayar tepat waktu (baik)
-        - ⚠️ **0** = Telat 1 bulan (cukup)
-        - ⚠️ **1** = Telat 2 bulan (buruk)
-        - ❌ **2-8** = Telat 3-9 bulan (sangat buruk)
-        """)
-        
-        st.markdown("**💰 TAGIHAN & PEMBAYARAN**")
-        st.markdown("""
-        - **BILL_AMT1-6** = Tagihan per bulan (NT$) - yang HARUS dibayar
-        - **PAY_AMT1-6** = Pembayaran per bulan (NT$) - yang BENAR-BENAR dibayar
-        """)
+        with col_right:
+            st.markdown("**💰 TAGIHAN & PEMBAYARAN**")
+            st.markdown("""
+            - **BILL_AMT1-6** = Tagihan per bulan (NT$) - yang HARUS dibayar
+            - **PAY_AMT1-6** = Pembayaran per bulan (NT$) - yang BENAR-BENAR dibayar
+            """)
         
         st.info("💡 **Tips:** Bandingkan PAY_AMT dengan BILL_AMT. Semakin mendekati tagihan, semakin baik.")
         
