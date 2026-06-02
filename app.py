@@ -513,108 +513,44 @@ if current_mode == "Single Client Analysis":
     # KOTAK INFO
     # ──────────────────────────────────────────────────────────────
     with st.expander("📖 PANDUAN PENGISIAN FORM (Klik untuk buka/tutup)", expanded=True):
+        
+        st.markdown("**👤 DATA DIRI**")
         st.markdown("""
-        <style>
-        .guide-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        .guide-table td {
-            padding: 6px 8px;
-            border-bottom: 1px solid #EEEEEE;
-            vertical-align: top;
-        }
-        .guide-table tr:last-child td {
-            border-bottom: none;
-        }
-        .badge-green {
-            background-color: #22C55E;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .badge-orange {
-            background-color: #F97316;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .badge-red {
-            background-color: #EF4444;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        </style>
+        - **LIMIT_BAL** = Plafon kredit (NT$) - semakin tinggi semakin baik
+        - **SEX** = 1 = Laki-laki, 2 = Perempuan
+        - **EDUCATION** = 1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya
+        - **MARRIAGE** = 1 = Menikah, 2 = Single, 3 = Lainnya
+        - **AGE** = Usia nasabah (tahun)
+        """)
         
-        <div style='display: flex; gap: 20px; flex-wrap: wrap;'>
-            
-            <!-- KOLOM 1: DATA DIRI -->
-            <div style='flex: 1; min-width: 220px;'>
-                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>👤 DATA DIRI</div>
-                <table class='guide-table'>
-                    <tr><td style='width: 100px;'><strong>LIMIT_BAL</strong></td><td>Plafon kredit (NT$) - semakin tinggi semakin baik</td></tr>
-                    <tr><td><strong>SEX</strong></td><td>1 = Laki-laki, 2 = Perempuan</td></tr>
-                    <tr><td><strong>EDUCATION</strong></td><td>1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya</td></tr>
-                    <tr><td><strong>MARRIAGE</strong></td><td>1 = Menikah, 2 = Single, 3 = Lainnya</td></tr>
-                    <tr><td><strong>AGE</strong></td><td>Usia nasabah (tahun)</td></tr>
-                </table>
-            </div>
-            
-            <!-- KOLOM 2: RIWAYAT PEMBAYARAN -->
-            <div style='flex: 1; min-width: 260px;'>
-                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)</div>
-                <table class='guide-table'>
-                    <tr><td style='width: 100px;'><strong>PAY_0</strong></td><td>September (bulan terbaru)</td></tr>
-                    <tr><td><strong>PAY_2</strong></td><td>Agustus</td></tr>
-                    <tr><td><strong>PAY_3</strong></td><td>Juli</td></tr>
-                    <tr><td><strong>PAY_4</strong></td><td>Juni</td></tr>
-                    <tr><td><strong>PAY_5</strong></td><td>Mei</td></tr>
-                    <tr><td><strong>PAY_6</strong></td><td>April</td></tr>
-                </table>
-                <div style='background-color: #F0F7FF; padding: 10px; border-radius: 6px; margin-top: 8px;'>
-                    <strong>🎯 Arti Nilai PAY:</strong><br>
-                    <span class='badge-green'>-2</span> Bayar lebih (sangat baik)<br>
-                    <span class='badge-green'>-1</span> Bayar tepat waktu (baik)<br>
-                    <span class='badge-orange'>0</span> Telat 1 bulan (cukup)<br>
-                    <span class='badge-orange'>1</span> Telat 2 bulan (buruk)<br>
-                    <span class='badge-red'>2-8</span> Telat 3-9 bulan (sangat buruk)
-                </div>
-            </div>
-            
-            <!-- KOLOM 3: TAGIHAN & PEMBAYARAN -->
-            <div style='flex: 1; min-width: 220px;'>
-                <div style='font-size: 13px; font-weight: 700; margin-bottom: 10px; border-left: 3px solid #1B1B1B; padding-left: 8px;'>💰 TAGIHAN & PEMBAYARAN</div>
-                <table class='guide-table'>
-                    <tr><td style='width: 110px;'><strong>BILL_AMT1-6</strong></td><td>Tagihan per bulan (NT$)</td></tr>
-                    <tr><td><strong>PAY_AMT1-6</strong></td><td>Pembayaran per bulan (NT$)</td></tr>
-                </table>
-                <div style='background-color: #F0F7FF; padding: 10px; border-radius: 6px; margin-top: 8px;'>
-                    <strong>💡 Tips:</strong><br>
-                    • BILL_AMT = tagihan yang HARUS dibayar<br>
-                    • PAY_AMT = uang yang BENAR-BENAR dibayar<br>
-                    • Bandingkan PAY_AMT dengan BILL_AMT untuk lihat kelayakan
-                </div>
-            </div>
-            
-        </div>
+        st.markdown("**📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)**")
+        st.markdown("""
+        - **PAY_0** = September (bulan terbaru)
+        - **PAY_2** = Agustus
+        - **PAY_3** = Juli
+        - **PAY_4** = Juni
+        - **PAY_5** = Mei
+        - **PAY_6** = April
+        """)
         
-        <div style='background-color: #E8F4FD; padding: 12px; border-radius: 8px; margin-top: 15px;'>
-            <span style='font-weight: 700;'>📌 KESIMPULAN:</span> 
-            Semakin kecil nilai PAY (negatif) dan semakin besar pembayaran dibanding tagihan → semakin BAIK. 
-            Semakin besar nilai PAY (positif) dan pembayaran kecil → semakin BERISIKO.
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("**🎯 Arti Nilai PAY:**")
+        st.markdown("""
+        - ✅ **-2** = Bayar lebih (sangat baik)
+        - ✅ **-1** = Bayar tepat waktu (baik)
+        - ⚠️ **0** = Telat 1 bulan (cukup)
+        - ⚠️ **1** = Telat 2 bulan (buruk)
+        - ❌ **2-8** = Telat 3-9 bulan (sangat buruk)
+        """)
+        
+        st.markdown("**💰 TAGIHAN & PEMBAYARAN**")
+        st.markdown("""
+        - **BILL_AMT1-6** = Tagihan per bulan (NT$) - yang HARUS dibayar
+        - **PAY_AMT1-6** = Pembayaran per bulan (NT$) - yang BENAR-BENAR dibayar
+        """)
+        
+        st.info("💡 **Tips:** Bandingkan PAY_AMT dengan BILL_AMT. Semakin mendekati tagihan, semakin baik.")
+        
+        st.success("📌 **KESIMPULAN:** Semakin kecil nilai PAY (negatif) dan semakin besar pembayaran dibanding tagihan → semakin BAIK.")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
