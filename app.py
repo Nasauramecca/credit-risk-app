@@ -827,80 +827,75 @@ if current_mode == "Single Client Analysis":
 # MODE B: BATCH PROCESSING PIPELINE
 # ==========================================
 else:
-    st.markdown("<div style='background-color: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 12px; padding: 2.5rem;'>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:14px; font-weight:600; color:#1B1B1B; margin-bottom:6px;'>Asynchronous Batch Upload</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size:13px; color:#5E5E5E; margin-bottom:20px;'>Upload file CSV masal untuk memproses evaluasi portofolio kelayakan kredit nasabah sekaligus.</p>", unsafe_allow_html=True)
-
-    csv_file = st.file_uploader("Upload CSV File", type=["csv"], label_visibility="collapsed")
-    st.markdown("</div>", unsafe_allow_html=True)
-
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.subheader("📂 Batch Upload")
+    st.markdown("Upload file CSV untuk memproses banyak nasabah sekaligus.")
+    
+    csv_file = st.file_uploader("Pilih file CSV", type=["csv"])
+    
     if csv_file is not None:
         df_batch_raw = pd.read_csv(csv_file)
-
+        
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<div style='font-size:11px; font-weight:700; color:#1B1B1B; text-transform:uppercase; margin-bottom:8px;'>Raw Portfolio Preview</div>", unsafe_allow_html=True)
+        st.markdown("**📋 Preview Data (5 baris pertama):**")
         st.dataframe(df_batch_raw.head(5), use_container_width=True)
-
+        
         st.markdown("<br>", unsafe_allow_html=True)
-        run_batch = st.button("PROSES SEMUA")
-
+        run_batch = st.button("🚀 PROSES SEMUA")
+        
         if run_batch:
             if model is None:
                 st.error("Pipeline model artifacts are not loaded correctly.")
             else:
-                with st.spinner("Processing continuous data matrices via Blend Ensemble..."):
+                with st.spinner("Processing data via Blend Ensemble..."):
                     time.sleep(0.5)
-
+                    
                     # ── BLEND ENSEMBLE BATCH ─────────────────────────────────
                     batch_probs, xgb_probs, anomaly_scores, iso_norms, lof_norms = predict_blend_ensemble(df_batch_raw)
-
-                    # Normalisasi anomaly untuk batch: tetap pakai training min/max (sudah di handle di predict_blend_ensemble)
-                    # Untuk batch, override: pakai batch-level normalisasi agar distribusi lebih stabil
-                    # (sesuai notebook yang pakai batch-level normalisasi untuk test set)
+                    
                     iso_raw_batch = -(iso_forest.score_samples(scaler.transform(run_feature_engineering_pipeline(df_batch_raw))))
                     lof_raw_batch = -(lof.score_samples(pca.transform(scaler.transform(run_feature_engineering_pipeline(df_batch_raw)))))
-
-                    # Normalisasi batch pakai training min/max (konsisten dengan single)
+                    
                     iso_norm_batch = np.clip((iso_raw_batch - ISO_MIN) / (ISO_MAX - ISO_MIN + 1e-9), 0, 5)
                     lof_norm_batch = np.clip((lof_raw_batch - LOF_MIN) / (LOF_MAX - LOF_MIN + 1e-9), 0, 5)
-
+                    
                     anomaly_scores_batch = 0.05 * iso_norm_batch + 0.95 * lof_norm_batch
                     batch_probs_final    = ALPHA * anomaly_scores_batch + BETA * xgb_probs
-
+                    
                     df_batch_raw['Default_Probability'] = batch_probs_final
-                    df_batch_raw['Decision']  = np.where(batch_probs_final >= THRESHOLD, "DEFAULT", "NON-DEFAULT")
+                    df_batch_raw['Decision'] = np.where(batch_probs_final >= THRESHOLD, "DEFAULT", "NON-DEFAULT")
                     df_batch_raw['Risk_Level'] = np.where(
                         batch_probs_final < 0.25, "Low",
                         np.where(batch_probs_final < THRESHOLD, "Medium", "High")
                     )
-
+                    
                     st.markdown("<br><hr><br>", unsafe_allow_html=True)
-                    m_col1, m_col2, m_col3 = st.columns(3)
-
-                    total_records  = len(df_batch_raw)
+                    
+                    col_a, col_b, col_c = st.columns(3)
+                    total_records = len(df_batch_raw)
                     total_rejected = len(df_batch_raw[df_batch_raw['Decision'] == 'DEFAULT'])
                     total_approved = total_records - total_rejected
-
-                    with m_col1:
-                        st.metric("Total Evaluated Records",  f"{total_records} Users")
-                    with m_col2:
-                        st.metric("Total Approved Portfolio", f"{total_approved} Users")
-                    with m_col3:
-                        st.metric("Total Rejected Portfolio", f"{total_rejected} Users")
-
+                    
+                    with col_a:
+                        st.metric("Total Data", f"{total_records} nasabah")
+                    with col_b:
+                        st.metric("Diprediksi DEFAULT", f"{total_rejected} nasabah")
+                    with col_c:
+                        st.metric("Diprediksi NON-DEFAULT", f"{total_approved} nasabah")
+                    
                     st.markdown("<br>", unsafe_allow_html=True)
-                    st.markdown("<div style='font-size:11px; font-weight:700; color:#1B1B1B; text-transform:uppercase; margin-bottom:8px;'>Pipeline Output Analytics View</div>", unsafe_allow_html=True)
-
+                    st.markdown("**📊 Hasil Prediksi:**")
+                    
                     display_cols = ['LIMIT_BAL', 'AGE', 'Default_Probability', 'Decision', 'Risk_Level']
-                    avail_cols   = [c for c in display_cols if c in df_batch_raw.columns]
+                    avail_cols = [c for c in display_cols if c in df_batch_raw.columns]
                     st.dataframe(df_batch_raw[avail_cols].head(50), use_container_width=True)
-
+                    
                     final_csv_bytes = df_batch_raw.to_csv(index=False).encode('utf-8')
                     st.markdown("<br>", unsafe_allow_html=True)
                     st.download_button(
-                        label="Download Hasil Sebagai CSV",
+                        label="📥 Download Hasil (CSV)",
                         data=final_csv_bytes,
-                        file_name="risk_assessment_batch_results.csv",
+                        file_name="risk_assessment_results.csv",
                         mime="text/csv"
                     )
 
