@@ -15,6 +15,29 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+
+st.markdown("""
+    <style>
+    /* Force light mode - prevent dark mode from OS/browser */
+    :root {
+        color-scheme: light !important;
+    }
+    
+    .stApp {
+        background-color: #FFFFFF !important;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        .stApp {
+            background-color: #FFFFFF !important;
+        }
+        html, body, [data-testid="stAppViewContainer"] {
+            background-color: #FFFFFF !important;
+        }
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Perbaikan CSS: Kalibrasi ulang Segmented Control agar tidak ngerap ke bawah (Stay Horizontal)
 st.markdown("""
     <style>
