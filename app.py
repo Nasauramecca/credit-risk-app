@@ -207,6 +207,21 @@ st.markdown("""
     div[data-testid="stSelectbox"] svg {
         fill: #1B1B1B !important;
     }
+
+    div[data-testid="stTooltipIcon"] {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    div[data-testid="stTooltipIcon"] svg {
+        fill: #9CA3AF !important;
+        background: transparent !important;
+    }
+
+    div[data-testid="stTooltipHoverTarget"] {
+        background-color: transparent !important;
+        border: none !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -500,6 +515,8 @@ st.html(f"""
         <a href="/?mode=single" target="_self" class="capsule-tab-item {active_single}">Single Client Analysis</a>
         <a href="/?mode=batch" target="_self" class="capsule-tab-item {active_batch}">Batch Processing Pipeline</a>
     </div>
+
+    
 """)
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -510,7 +527,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 if current_mode == "Single Client Analysis":
     
     # ──────────────────────────────────────────────────────────────
-    # KOTAK INFO
+    # KOTAK INFO / PANDUAN
     # ──────────────────────────────────────────────────────────────
     with st.expander("📖 PANDUAN PENGISIAN FORM (Klik untuk buka/tutup)", expanded=True):
         
@@ -519,25 +536,25 @@ if current_mode == "Single Client Analysis":
         with col_left:
             st.markdown("**👤 DATA DIRI**")
             st.markdown("""
-            - **LIMIT_BAL** = Plafon kredit (NT$) - semakin tinggi semakin baik
-            - **SEX** = 1 = Laki-laki, 2 = Perempuan
-            - **EDUCATION** = 1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya
-            - **MARRIAGE** = 1 = Menikah, 2 = Single, 3 = Lainnya
-            - **AGE** = Usia nasabah (tahun)
+            - **LIMIT BALANCE** = Plafon kredit (semakin tinggi semakin baik)
+            - **JENIS KELAMIN** = 1 = Laki-laki, 2 = Perempuan
+            - **PENDIDIKAN** = 1 = S2/S3, 2 = S1, 3 = SMA, 4 = Lainnya
+            - **STATUS PERNIKAHAN** = 1 = Menikah, 2 = Single, 3 = Lainnya
+            - **USIA** = Usia nasabah (tahun)
             """)
 
-            st.markdown("**📆 RIWAYAT PEMBAYARAN (PAY_0 - PAY_6)**")
+            st.markdown("**📆 STATUS PEMBAYARAN**")
             st.markdown("""
-            - **PAY_0** = September (bulan terbaru)
-            - **PAY_2** = Agustus
-            - **PAY_3** = Juli
-            - **PAY_4** = Juni
-            - **PAY_5** = Mei
-            - **PAY_6** = April
+            - **September (bulan terbaru)** = Status bayar bulan September
+            - **Agustus** = Status bayar bulan Agustus
+            - **Juli** = Status bayar bulan Juli
+            - **Juni** = Status bayar bulan Juni
+            - **Mei** = Status bayar bulan Mei
+            - **April (bulan terlama)** = Status bayar bulan April
             """)
         
         with col_right:
-            st.markdown("**🎯 Arti Nilai PAY:**")
+            st.markdown("**🎯 ARTI NILAI STATUS PEMBAYARAN:**")
             st.markdown("""
             - ✅ **-2** = Bayar lebih (sangat baik)
             - ✅ **-1** = Bayar tepat waktu (baik)
@@ -548,15 +565,26 @@ if current_mode == "Single Client Analysis":
 
             st.markdown("**💰 TAGIHAN & PEMBAYARAN**")
             st.markdown("""
-            - **BILL_AMT1-6** = Tagihan per bulan (NT$) - yang HARUS dibayar
-            - **PAY_AMT1-6** = Pembayaran per bulan (NT$) - yang BENAR-BENAR dibayar
+            - **TAGIHAN** = Jumlah tagihan yang HARUS dibayar (dalam kurs Dolar)
+            - **PEMBAYARAN** = Jumlah uang yang BENAR-BENAR dibayar (dalam kurs Dolar)
             """)
+        
+        st.markdown("---")
+        
+        col_info1, col_info2, col_info3 = st.columns(3)
+        
+        with col_info1:
+            st.info("💡 **Tips 1:** Bandingkan PEMBAYARAN dengan TAGIHAN. Semakin mendekati tagihan, semakin baik.")
+        
+        with col_info2:
+            st.warning("⚠️ **Tips 2:** Nilai STATUS PEMBAYARAN positif (0-8) menandakan keterlambatan. Semakin besar angkanya, semakin buruk.")
+        
+        with col_info3:
+            st.success("📌 **Kesimpulan:** Semakin kecil nilai STATUS PEMBAYARAN (negatif) dan semakin besar PEMBAYARAN dibanding TAGIHAN → semakin BAIK.")
+        
+        st.markdown("---")
+        st.caption("📝 *Catatan: Nilai tagihan dan pembayaran dalam kurs Dolar. Contoh: 1000 = 1.000 Dolar.*")
 
-        
-        st.info("💡 **Tips:** Bandingkan PAY_AMT dengan BILL_AMT. Semakin mendekati tagihan, semakin baik.")
-        
-        st.success("📌 **KESIMPULAN:** Semakin kecil nilai PAY (negatif) dan semakin besar pembayaran dibanding tagihan → semakin BAIK.")
-    
     st.markdown("<br>", unsafe_allow_html=True)
     
     
