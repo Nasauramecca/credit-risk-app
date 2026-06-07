@@ -572,35 +572,112 @@ if current_mode == "Single Client Analysis":
             marriage  = st.selectbox("Marriage", options=[1, 2, 3], format_func=lambda x: ["Married", "Single", "Other"][x-1])
             age       = st.number_input("Age", min_value=18, max_value=100, value=34)
 
-        # Kolom 2: Repayment Status
+        # Kolom 2: Riwayat Pembayaran
         with col2:
-            st.markdown("<div class='label-matte-style'>Repayment Status</div>", unsafe_allow_html=True)
-            pay_0 = st.slider("PAY_0 (Latest)", -2, 8, 0)
-            pay_2 = st.slider("PAY_2", -2, 8, 0)
-            pay_3 = st.slider("PAY_3", -2, 8, 1)
-            pay_4 = st.slider("PAY_4", -2, 8, 0)
-            pay_5 = st.slider("PAY_5", -2, 8, 0)
-            pay_6 = st.slider("PAY_6", -2, 8, -1)
+            st.markdown("<div class='label-matte-style'>Riwayat Pembayaran</div>", unsafe_allow_html=True)
+            
+            pay_0 = st.slider(
+                "Status Pembayaran - September (Bulan Terbaru)", 
+                -2, 8, 0,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
+            pay_2 = st.slider(
+                "Status Pembayaran - Agustus", 
+                -2, 8, 0,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
+            pay_3 = st.slider(
+                "Status Pembayaran - Juli", 
+                -2, 8, 1,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
+            pay_4 = st.slider(
+                "Status Pembayaran - Juni", 
+                -2, 8, 0,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
+            pay_5 = st.slider(
+                "Status Pembayaran - Mei", 
+                -2, 8, 0,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
+            pay_6 = st.slider(
+                "Status Pembayaran - April (Bulan Terlama)", 
+                -2, 8, -1,
+                help="-2 = Bayar lebih | -1 = Bayar tepat waktu | 0 = Telat 1 bulan | 1 = Telat 2 bulan | 2-8 = Telat 3-9 bulan"
+            )
 
-        # Kolom 3: Bill Amounts
+        # Kolom 3: Tagihan per Bulan (dalam kurs Dolar)
         with col3:
-            st.markdown("<div class='label-matte-style'>Bill Amounts</div>", unsafe_allow_html=True)
-            bill_amt1 = st.number_input("BILL_AMT1", value=3913)
-            bill_amt2 = st.number_input("BILL_AMT2", value=2682)
-            bill_amt3 = st.number_input("BILL_AMT3", value=2355)
-            bill_amt4 = st.number_input("BILL_AMT4", value=3572)
-            bill_amt5 = st.number_input("BILL_AMT5", value=2000)
-            bill_amt6 = st.number_input("BILL_AMT6", value=1850)
+            st.markdown("<div class='label-matte-style'>Tagihan per Bulan</div>", unsafe_allow_html=True)
+            st.caption("💰 Nilai dalam kurs Dolar")
+            
+            bill_amt1 = st.number_input(
+                "Tagihan - September", 
+                value=3913,
+                help="Total tagihan yang harus dibayar nasabah di bulan September (dalam kurs Dolar)"
+            )
+            bill_amt2 = st.number_input(
+                "Tagihan - Agustus", 
+                value=2682,
+                help="Total tagihan yang harus dibayar nasabah di bulan Agustus (dalam kurs Dolar)"
+            )
+            bill_amt3 = st.number_input(
+                "Tagihan - Juli", 
+                value=2355,
+                help="Total tagihan yang harus dibayar nasabah di bulan Juli (dalam kurs Dolar)"
+            )
+            bill_amt4 = st.number_input(
+                "Tagihan - Juni", 
+                value=3572,
+                help="Total tagihan yang harus dibayar nasabah di bulan Juni (dalam kurs Dolar)"
+            )
+            bill_amt5 = st.number_input(
+                "Tagihan - Mei", 
+                value=2000,
+                help="Total tagihan yang harus dibayar nasabah di bulan Mei (dalam kurs Dolar)"
+            )
+            bill_amt6 = st.number_input(
+                "Tagihan - April", 
+                value=1850,
+                help="Total tagihan yang harus dibayar nasabah di bulan April (dalam kurs Dolar)"
+            )
 
-        # Kolom 4: Previous Payments
+        # Kolom 4: Pembayaran per Bulan (dalam kurs Dolar)
         with col4:
-            st.markdown("<div class='label-matte-style'>Previous Payments</div>", unsafe_allow_html=True)
-            pay_amt1 = st.number_input("PAY_AMT1", value=0)
-            pay_amt2 = st.number_input("PAY_AMT2", value=689)
-            pay_amt3 = st.number_input("PAY_AMT3", value=0)
-            pay_amt4 = st.number_input("PAY_AMT4", value=0)
-            pay_amt5 = st.number_input("PAY_AMT5", value=0)
-            pay_amt6 = st.number_input("PAY_AMT6", value=678)
+            st.markdown("<div class='label-matte-style'>Pembayaran per Bulan</div>", unsafe_allow_html=True)
+            st.caption("💰 Nilai dalam kurs Dolar")
+            
+            pay_amt1 = st.number_input(
+                "Pembayaran - September", 
+                value=0,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan September (dalam kurs Dolar)"
+            )
+            pay_amt2 = st.number_input(
+                "Pembayaran - Agustus", 
+                value=689,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan Agustus (dalam kurs Dolar)"
+            )
+            pay_amt3 = st.number_input(
+                "Pembayaran - Juli", 
+                value=0,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan Juli (dalam kurs Dolar)"
+            )
+            pay_amt4 = st.number_input(
+                "Pembayaran - Juni", 
+                value=0,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan Juni (dalam kurs Dolar)"
+            )
+            pay_amt5 = st.number_input(
+                "Pembayaran - Mei", 
+                value=0,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan Mei (dalam kurs Dolar)"
+            )
+            pay_amt6 = st.number_input(
+                "Pembayaran - April", 
+                value=678,
+                help="Jumlah uang yang benar-benar dibayar nasabah di bulan April (dalam kurs Dolar)"
+            )
 
         # Baris tombol tengah
         st.markdown("<br>", unsafe_allow_html=True)
