@@ -759,7 +759,7 @@ if current_mode == "Single Client Analysis":
             st.markdown("<br>", unsafe_allow_html=True)
             res_col1, res_col2, res_col3 = st.columns(3, gap="medium")
 
-            decision = "REJECTED" if prob_value >= THRESHOLD else "APPROVED"
+            decision = "DEFAULT" if prob_value >= THRESHOLD else "NON-DEFAULT"
 
             with res_col1:
                 st.markdown(f"""
@@ -767,7 +767,7 @@ if current_mode == "Single Client Analysis":
                         <span style='font-size:11px; font-weight:600; text-transform:uppercase; color:#5E5E5E;'>Analysis Verdict</span>
                         <div>
                             <h2 style='font-size: 28px; font-weight: 700; color: #1B1B1B; margin: 0;'>{decision}</h2>
-                            <p style='font-size: 12px; color: #5E5E5E; margin-top: 4px;'>The client exhibits {"sustainable" if decision == "APPROVED" else "critical"} behavior metrics.</p>
+                            <p style='font-size: 12px; color: #5E5E5E; margin-top: 4px;'>The client exhibits {"sustainable" if decision == "NON-DEFAULT" else "critical"} behavior metrics.</p>
                         </div>
                     </div>
                 """, unsafe_allow_html=True)
@@ -845,7 +845,7 @@ else:
                     batch_probs_final    = ALPHA * anomaly_scores_batch + BETA * xgb_probs
 
                     df_batch_raw['Default_Probability'] = batch_probs_final
-                    df_batch_raw['Decision']  = np.where(batch_probs_final >= THRESHOLD, "REJECTED", "APPROVED")
+                    df_batch_raw['Decision']  = np.where(batch_probs_final >= THRESHOLD, "DEFAULT", "NON-DEFAULT")
                     df_batch_raw['Risk_Level'] = np.where(
                         batch_probs_final < 0.25, "Low",
                         np.where(batch_probs_final < THRESHOLD, "Medium", "High")
@@ -855,7 +855,7 @@ else:
                     m_col1, m_col2, m_col3 = st.columns(3)
 
                     total_records  = len(df_batch_raw)
-                    total_rejected = len(df_batch_raw[df_batch_raw['Decision'] == 'REJECTED'])
+                    total_rejected = len(df_batch_raw[df_batch_raw['Decision'] == 'DEFAULT'])
                     total_approved = total_records - total_rejected
 
                     with m_col1:
